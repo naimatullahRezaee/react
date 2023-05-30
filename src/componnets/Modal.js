@@ -1,11 +1,11 @@
 import "./modal.css";
 
-export default function Modal() {
+export default function Modal(props) {
   return (
     <div className="modal-backdrop">
       <div className="modal">
-        <h2>10% off this Course</h2>
-        <p>Use the this Code [66#$@5678] for discount </p>
+        {props.children}
+        <button onClick={props.close}>X</button>
       </div>
     </div>
   );

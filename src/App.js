@@ -1,73 +1,69 @@
-import React, { useState } from "react";
 import "./App.css";
-import Title from "./componnets/title";
+import React from "react";
+import { useState } from "react";
 import Modal from "./componnets/Modal";
+import Eventslist from "./componnets/eventslist";
 function App() {
-  const [display, setDisplay] = useState("");
-  const [expression, setExpression] = useState([]);
+  // let name = "Rezaie";
+  const [name, setName] = useState("Rezaie");
+  const [events, setEvents] = useState([
+    { title: "Greeting is good", id: 1 },
+    { title: "hi how are you", id: 2 },
+    { title: "I am fine and you", id: 3 },
+    { title: "Where is he from ", id: 4 },
+    { title: "He is from Afghanistan", id: 5 },
+    { title: "Have a good day", id: 6 },
+  ]);
 
-  const handleClick = (value) => {
-    setDisplay(value);
-    setExpression([...expression, value]);
-  };
-
-  const handleResult = () => {
-    const result = expression
-      .join("")
-      .split(/(\D)/g)
-      .map((value) => (value.match(/\d/g) ? parseInt(value, 0) : value))
-      .reduce((acc, value, index, array) => {
-        switch (value) {
-          case "+":
-            return (acc = acc + array[index + 1]);
-          case "-":
-            return (acc = acc - array[index + 1]);
-          case "x":
-            return (acc = acc * array[index + 1]);
-          case "÷":
-            return (acc = acc / array[index + 1]);
-          default:
-            return acc;
-        }
+  const [showEvents, setShowEvents] = useState(true);
+  const [closemodal, setCloseModal] = useState(false);
+  const handleclick = (id) => {
+    // // name = "Niamatullah";
+    // setName("Niamatullah");
+    // console.log(name);
+    setEvents((preEvents) => {
+      return preEvents.filter((events) => {
+        return id !== events.id;
       });
-    setDisplay(result);
-    setExpression("");
+    });
   };
 
+  const handleClose = () => {
+    setCloseModal(false);
+  };
+
+  const handleOpen = () => {
+    setCloseModal(true);
+  };
   return (
     <div className="App">
-      <Title />
+      {/* <h1>{name}</h1>
+      <button onClick={handleclick}>Change Name</button> */}
+      {showEvents && (
+        <div>
+          <button onClick={() => setShowEvents(false)}>Hide</button>
+        </div>
+      )}
+      {!showEvents && (
+        <div>
+          <button onClick={() => setShowEvents(true)}>Show</button>
+        </div>
+      )}
+      {showEvents && <Eventslist events={events} handleclick={handleclick} />}
+      {/* {showEvents && <eventslist events={events} handleclick={handleclick} />} */}
+      <button onClick={handleOpen}>show modal</button>
 
-      <h3 className="display">{display}</h3>
-
-      <span className="expression">{expression}</span>
-
-      <section className="panel">
-        <section className="numbers">
-          <button onClick={() => handleClick(7)}>7</button>
-          <button onClick={() => handleClick(8)}>8</button>
-          <button onClick={() => handleClick(9)}>9</button>
-
-          <button onClick={() => handleClick(4)}>4</button>
-          <button onClick={() => handleClick(5)}>5</button>
-          <button onClick={() => handleClick(6)}>6</button>
-
-          <button onClick={() => handleClick(1)}>1</button>
-          <button onClick={() => handleClick(2)}>2</button>
-          <button onClick={() => handleClick(3)}>3</button>
-
-          <button onClick={() => handleClick(0)}>0</button>
-        </section>
-
-        <section className="operators">
-          <button onClick={() => handleClick("÷")}>÷</button>
-          <button onClick={() => handleClick("x")}>x</button>
-          <button onClick={() => handleClick("-")}>-</button>
-          <button onClick={() => handleClick("+")}>+</button>
-          <button onClick={() => handleResult()}>=</button>
-        </section>
-      </section>
-      <Modal />
+      {closemodal && (
+        <Modal close={handleClose}>
+          <h1>Information</h1>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis
+            inventore dolorum amet magni et quis, fugit incidunt tempore
+            provident alias non saepe at voluptas! Quasi explicabo itaque
+            ratione sed aliquid.
+          </p>
+        </Modal>
+      )}
     </div>
   );
 }
