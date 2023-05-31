@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import Modal from "./componnets/Modal";
 import Eventslist from "./componnets/eventslist";
+import NewMovieForm from "./componnets/Newmovieform";
 function App() {
   // let name = "Rezaie";
   const [name, setName] = useState("Rezaie");
@@ -51,19 +52,13 @@ function App() {
       )}
       {showEvents && <Eventslist events={events} handleclick={handleclick} />}
       {/* {showEvents && <eventslist events={events} handleclick={handleclick} />} */}
-      <button onClick={handleOpen}>show modal</button>
 
       {closemodal && (
         <Modal close={handleClose}>
-          <h1>Information</h1>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis
-            inventore dolorum amet magni et quis, fugit incidunt tempore
-            provident alias non saepe at voluptas! Quasi explicabo itaque
-            ratione sed aliquid.
-          </p>
+          <NewMovieForm />
         </Modal>
       )}
+      <button onClick={handleOpen}>Add Movie</button>
     </div>
   );
 }
