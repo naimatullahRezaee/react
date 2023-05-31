@@ -8,6 +8,9 @@ export default function Eventslist(props) {
           <h2>
             {index + 1} - {events.title}
           </h2>
+          <p>
+            {events.genre} - {events.date}
+          </p>
           <button className="btn" onClick={() => props.handleclick(events.id)}>
             Delete
           </button>
