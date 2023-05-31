@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Newmovieform.css";
 
-export default function NewMovieForm() {
+export default function NewMovieForm(props) {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   // const handleChange = (e) => {
@@ -11,8 +11,20 @@ export default function NewMovieForm() {
     setTitle("");
     setDate("");
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const event = {
+      title: title,
+      date: date,
+      id: Math.floor(Math.random() * 1000),
+    };
+    props.addMovie(event);
+
+    restForm();
+  };
+
   return (
-    <form action="" className="new-event-form">
+    <form action="" className="new-event-form" onSubmit={handleSubmit}>
       {/* <label htmlFor=""></label>
       <input type="text" /> */}
       <label>
@@ -32,10 +44,6 @@ export default function NewMovieForm() {
         />
       </label>
       <button>Submit</button>
-      <p>
-        Title - {title}, Date - {date}
-      </p>
-      <p onClick={restForm}>Rest the Form</p>
     </form>
   );
 }

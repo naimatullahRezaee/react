@@ -7,14 +7,7 @@ import NewMovieForm from "./componnets/Newmovieform";
 function App() {
   // let name = "Rezaie";
   const [name, setName] = useState("Rezaie");
-  const [events, setEvents] = useState([
-    { title: "Greeting is good", id: 1 },
-    { title: "hi how are you", id: 2 },
-    { title: "I am fine and you", id: 3 },
-    { title: "Where is he from ", id: 4 },
-    { title: "He is from Afghanistan", id: 5 },
-    { title: "Have a good day", id: 6 },
-  ]);
+  const [events, setEvents] = useState([]);
 
   const [showEvents, setShowEvents] = useState(true);
   const [closemodal, setCloseModal] = useState(false);
@@ -29,6 +22,12 @@ function App() {
     });
   };
 
+  const addMovie = (event) => {
+    setEvents((preEvents) => {
+      return [...preEvents, event];
+    });
+    setCloseModal(false);
+  };
   const handleClose = () => {
     setCloseModal(false);
   };
@@ -54,8 +53,8 @@ function App() {
       {/* {showEvents && <eventslist events={events} handleclick={handleclick} />} */}
 
       {closemodal && (
-        <Modal close={handleClose}>
-          <NewMovieForm />
+        <Modal>
+          <NewMovieForm addMovie={addMovie} />
         </Modal>
       )}
       <button onClick={handleOpen}>Add Movie</button>
