@@ -7,8 +7,10 @@ export default function Eventslist(props) {
         <React.Fragment key={events.id}>
           <h2>
             {index + 1} - {events.title}
-            <button onClick={() => props.handleclick(events.id)}>Delete</button>
           </h2>
+          <button className="btn" onClick={() => props.handleclick(events.id)}>
+            Delete
+          </button>
         </React.Fragment>
       ))}
     </div>
